@@ -1,0 +1,68 @@
+#pragma once
+
+#define SOF0 0xC0
+#define SOF1 0xC1
+#define SOF2 0xC2
+#define SOF3 0xC3
+
+#define SOF5 0xC5
+#define SOF6 0xC6
+#define SOF7 0xC7
+
+#define JPG 0xC8
+#define SOF9 0xC9
+#define SOF10 0xCA
+#define SOF11 0xCB
+
+#define SOF13 0xCD
+#define SOF14 0xCE
+#define SOF15 0xCF
+
+#define DHT 0xC4
+
+#define DAC 0xCC
+
+// RSTm
+
+#define SOI 0xD8
+#define EOI 0xD9
+#define SOS 0xDA
+#define DQT 0xDB
+#define DNL 0xDC
+#define DRI 0xDD
+#define DHP 0xDE
+#define EXP 0xDF
+
+#define APP1 0xE0
+#define APP2 0xE1
+#define APP3 0xE2
+#define APP4 0xE3
+#define APP5 0xE4
+#define APP6 0xE5
+#define APP7 0xE6
+#define APP8 0xE7
+#define APP9 0xE8
+#define APP10 0xE9
+#define APP11 0xEA
+#define APP12 0xEB
+#define APP13 0xEC
+#define APP14 0xED
+#define APP15 0xEE
+#define APP16 0xEF
+
+#define JPG1 0xE0
+#define JPG2 0xE1
+#define JPG3 0xE2
+#define JPG4 0xE3
+#define JPG5 0xE4
+#define JPG6 0xE5
+#define JPG7 0xE6
+#define JPG8 0xE7
+#define JPG9 0xE8
+#define JPG10 0xE9
+#define JPG11 0xEA
+#define JPG12 0xEB
+#define JPG13 0xEC
+#define JPG14 0xED
+
+#define COM 0xFE
