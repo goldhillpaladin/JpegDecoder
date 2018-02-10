@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 
 #include <array>
 #include <cstdint>
 #include <vector>
 
-// 8 x 8 ¾ØÕó
+// 8 x 8 çŸ©é˜µ
 typedef std::array<std::array<int16_t, 8>, 8> JpegBlock;
 
 void PrintBlock(const std::array<std::array<int16_t, 8>, 8>& block);
 
-// 8 x 8 ÏñËØ¿é£¬º¬ÓĞ 3 ¸öÍ¨µÀ£¬Ò»´ÎÎª Y£¬Cb£¬Cr
+// 8 x 8 åƒç´ å—ï¼Œå«æœ‰ 3 ä¸ªé€šé“ï¼Œä¸€æ¬¡ä¸º Yï¼ŒCbï¼ŒCr
 typedef std::array<JpegBlock, 3> UnitBlock;
 
 // SOI: start of image
@@ -104,10 +104,10 @@ void PrintHuffmanTree(HuffmanNode* root);
 
 // runLength encode
 struct RLE {
-    uint8_t runlength; // Ö®Ç°µÄ 0 µÄ¸öÊı
-    uint8_t size;      // amplitude µÄÎ»Êı
-    int16_t amplitude; // ·Ç 0 ÕûÊı
+    uint8_t runlength; // ä¹‹å‰çš„ 0 çš„ä¸ªæ•°
+    uint8_t size;      // amplitude çš„ä½æ•°
+    int16_t amplitude; // é 0 æ•´æ•°
 };
 
-// ·µ»Ø¾ØÕóÔÚ zigzag Ë³ĞòÏÂµÄ×ø±êĞòÁĞ
+// è¿”å›çŸ©é˜µåœ¨ zigzag é¡ºåºä¸‹çš„åæ ‡åºåˆ—
 std::vector<std::pair<int, int>> ZigzigOrderOfMatrix(int n);

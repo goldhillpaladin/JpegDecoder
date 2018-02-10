@@ -1,4 +1,4 @@
-#include <algorithm>
+ï»¿#include <algorithm>
 #include <cassert>
 
 #include "bit_operation.h"
@@ -31,9 +31,9 @@ uint8_t NBitsInOneByte(uint8_t byte, int start, int end) {
 }
 
 uint32_t GetBitsToInteger(const uint8_t* p, int start, int count) {
-    int i = start / 8; // µÚÒ»¸ö×Ö½ÚµÄÏÂ±ê
-    int sub_start = start % 8; // µ±Ç°×Ö½ÚÖÐÒª±»½ØÈ¡µÄ bit Î»µÄÆðÊ¼ÏÂ±ê
-    int sub_count = 0; // µ±Ç°×Ö½ÚÖÐÒª±»»ñµÃµÄ bit Î»Êý
+    int i = start / 8; // ç¬¬ä¸€ä¸ªå­—èŠ‚çš„ä¸‹æ ‡
+    int sub_start = start % 8; // å½“å‰å­—èŠ‚ä¸­è¦è¢«æˆªå–çš„ bit ä½çš„èµ·å§‹ä¸‹æ ‡
+    int sub_count = 0; // å½“å‰å­—èŠ‚ä¸­è¦è¢«èŽ·å¾—çš„ bit ä½æ•°
     int sub_end = 0;
     uint32_t ret = 0;
     while (count > 0) {

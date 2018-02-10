@@ -1,4 +1,4 @@
-#include <cassert>
+ï»¿#include <cassert>
 #include <cmath>
 #include <iostream>
 #include <memory>
@@ -362,7 +362,7 @@ std::shared_ptr<HuffmanNode> HuffmanTableToHuffmanTree(const DefHuffmanTable::Hu
     return huff_root;
 }
 
-// bits ÊÇ·ñÎ»ÓÚ Huffman Ê÷ÖĞ
+// bits æ˜¯å¦ä½äº Huffman æ ‘ä¸­
 bool ExistHuffmanCode(HuffmanNode* huff_root, const std::vector<bool>& bits) {
     HuffmanNode* node = huff_root;
     int i = 0;
@@ -463,7 +463,7 @@ JpegBlock EntropyCodeToQuantizedDCTMatrix(const uint8_t* code, int& bit_id,
     std::vector<RLE> mcu;
     int element_count = 0;
 
-    // DC ÏµÊı
+    // DC ç³»æ•°
     RLE rle;
     uint8_t runlen_size = DecodeHuffman(dc_root.get(), code, bit_id);
     rle.runlength = High4bit(runlen_size);
@@ -472,7 +472,7 @@ JpegBlock EntropyCodeToQuantizedDCTMatrix(const uint8_t* code, int& bit_id,
     mcu.push_back(rle);
     ++element_count;
 
-    // Y Í¨µÀµÄ AC ÏµÊı
+    // Y é€šé“çš„ AC ç³»æ•°
     while (element_count < 64) {
         runlen_size = DecodeHuffman(ac_root.get(), code, bit_id);
         rle.runlength = High4bit(runlen_size);
@@ -487,7 +487,7 @@ JpegBlock EntropyCodeToQuantizedDCTMatrix(const uint8_t* code, int& bit_id,
     return block;
 }
 
-// ·´Á¿»¯
+// åé‡åŒ–
 JpegBlock DeQuantize(const JpegBlock& quantized, const DefQuantTable::QuantTable& table) {
     JpegBlock origin;
     
@@ -501,7 +501,7 @@ JpegBlock DeQuantize(const JpegBlock& quantized, const DefQuantTable::QuantTable
     return origin;
 }
 
-// ÓÉ DIFF ×ª»»³ÉÕæÊµµÄ DC Öµ
+// ç”± DIFF è½¬æ¢æˆçœŸå®çš„ DC å€¼
 void AmendQuantizedDCTMatrix(std::vector<UnitBlock>& unit_blocks) {
     for (int component = 0; component < 3; ++component) {
         int16_t prev_dc = 0;
@@ -533,7 +533,7 @@ double f1(uint8_t x, uint8_t y, const JpegBlock& dct_matrix) {
     return ret / 4;
 }
 
-// Äæ DCT ±ä»»
+// é€† DCT å˜æ¢
 JpegBlock IDCT8X8(const JpegBlock& dct_matrix) {
     JpegBlock ret;
     for (int x = 0; x < 8; ++x) {
@@ -594,7 +594,7 @@ void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<D
     }
     AmendQuantizedDCTMatrix(unit_blocks);
 
-    // ¶Ô quantized DCT ·´Á¿»¯£¬»ñµÃÔ­Ê¼µÄ DCT
+    // å¯¹ quantized DCT åé‡åŒ–ï¼Œè·å¾—åŸå§‹çš„ DCT
     std::vector<UnitBlock> origin_dct_sets(unit_blocks.size());
     for (int i = 0; i < (int)unit_blocks.size(); ++i) {
         origin_dct_sets[i][0] = DeQuantize(unit_blocks[i][0], y_quant_table);
@@ -602,7 +602,7 @@ void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<D
         origin_dct_sets[i][2] = DeQuantize(unit_blocks[i][2], c_quant_table);
     }
 
-    // ¶Ô DCT ½øĞĞ IDCT ²Ù×÷£¬»ñµÃ½µ²ÉÑùµÄÔ´ÏñËØµã¼¯ºÏ
+    // å¯¹ DCT è¿›è¡Œ IDCT æ“ä½œï¼Œè·å¾—é™é‡‡æ ·çš„æºåƒç´ ç‚¹é›†åˆ
     std::vector<UnitBlock> idct_sets(origin_dct_sets.size());
     for (int i = 0; i < (int)origin_dct_sets.size(); ++i) {
         idct_sets[i][0] = IDCT8X8(origin_dct_sets[i][0]);

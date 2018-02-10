@@ -1,31 +1,31 @@
-#pragma once
+ï»¿#pragma once
 
 #include <cstdint>
 #include <vector>
 
-// °´´ó¶ËÄ£Ê½¶ÁÈ¡Êı¾İ
+// æŒ‰å¤§ç«¯æ¨¡å¼è¯»å–æ•°æ®
 uint32_t GetBigEndianInteger(const uint8_t* data, int len);
 
-// »ñÈ¡¸ß 4 Î»
+// è·å–é«˜ 4 ä½
 uint8_t High4bit(uint8_t byte);
 
-// »ñÈ¡µÍ 4 Î»
+// è·å–ä½ 4 ä½
 uint8_t Low4bit(uint8_t byte);
 
-// »ñÈ¡×Ö½ÚÄÚµÄÁ¬ĞøÄ³¼¸Î»
+// è·å–å­—èŠ‚å†…çš„è¿ç»­æŸå‡ ä½
 uint8_t NBitsInOneByte(uint8_t byte, int start, int end);
 
-// »ñÈ¡ÒÔµÚ start Î» bit ¿ªÊ¼µÄ count ¸ö bit£¬²¢±£´æÎª32Î»ÎŞ·ûºÅÕûĞÍÊı
+// è·å–ä»¥ç¬¬ start ä½ bit å¼€å§‹çš„ count ä¸ª bitï¼Œå¹¶ä¿å­˜ä¸º32ä½æ— ç¬¦å·æ•´å‹æ•°
 uint32_t GetBitsToInteger(const uint8_t* p, int start, int count);
 
-// »ñÈ¡ÒÔµÚ start Î» bit ¿ªÊ¼µÄ count ¸ö bit
+// è·å–ä»¥ç¬¬ start ä½ bit å¼€å§‹çš„ count ä¸ª bit
 std::vector<bool> GetBits(const uint8_t* p, int start, int count);
 
-// »ñÈ¡µÚ n ¸ö bit
+// è·å–ç¬¬ n ä¸ª bit
 bool GetBit(const uint8_t* p, int bit_id);
 
-// ÓÃ size ¸ö bit È¥±àÂë code
+// ç”¨ size ä¸ª bit å»ç¼–ç  code
 std::vector<bool> EncodeInNBits(uint16_t code, uint8_t size);
 
-// ´Ó bit ¼¯ºÏ»ñÈ¡Ò»¸öÎŞ·ûºÅ 16 Î»Êı
+// ä» bit é›†åˆè·å–ä¸€ä¸ªæ— ç¬¦å· 16 ä½æ•°
 uint16_t NBitsToInteger(const std::vector<bool>& bits);

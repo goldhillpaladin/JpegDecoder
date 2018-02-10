@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define SOF0 0xC0
 #define SOF1 0xC1
