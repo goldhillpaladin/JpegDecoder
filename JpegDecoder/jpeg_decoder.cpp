@@ -283,7 +283,7 @@ std::vector<uint8_t> GenerateHuffmanSize(const DefHuffmanTable::HuffmanTable& hu
         }
     }
     HuffSize.push_back(0);
-    int last_k = HuffSize.size() - 1;
+    int last_k = (int)HuffSize.size() - 1;
     return HuffSize;
 }
 
@@ -545,6 +545,11 @@ JpegBlock IDCT8X8(const JpegBlock& dct_matrix) {
 }
 
 void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<DefHuffmanTable::HuffmanTable>& huffman_tables) {
+    uint8_t sample_precision = SOF0_.P; // 基线顺序模式下，为 8 bit
+    uint16_t vertical_size = SOF0_.Y;
+    uint16_t horizontal_size = SOF0_.X;
+    uint8_t component_count = SOS_.Ns;
+
     // get quant tables
     DefQuantTable::QuantTable y_quant_table;
     DefQuantTable::QuantTable c_quant_table;
@@ -612,22 +617,10 @@ void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<D
         //PrintBlock(idct_sets[i][1]);
         //PrintBlock(idct_sets[i][2]);
     }
-}
 
-std::vector<uint8_t> HuffmanCodeToZigZagSequence(const uint8_t* code, 
-                                                 int code_len, 
-                                                 HuffmanNode* dc_root, 
-                                                 HuffmanNode* ac_root) {
-    std::vector<uint8_t> zig_zag;
+    // 反降采样
 
-    int bit_id = 0;
-    //int byte_id = 0;
-
-    
-
-
-
-    return zig_zag;
+    // YCbCr -> RGB
 }
 
 void DecodeJpeg() {
@@ -668,9 +661,9 @@ void ParseJpeg(const std::string& file_path) {
     SOS_ = GetSOS(p);
 
     entropy_code_ = GetEntropyCode(p);
-    printf("0x%x\n", p - data_begin_);
+    printf("0x%x\n", (unsigned int)(p - data_begin_));
 
     //DecodeJpeg();
 
-    DeHuffmanEntropyCode(entropy_code_.data(), entropy_code_.size(), huffman_tables_);
+    DeHuffmanEntropyCode(entropy_code_.data(), (int)entropy_code_.size(), huffman_tables_);
 }
