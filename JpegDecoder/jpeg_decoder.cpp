@@ -544,6 +544,37 @@ JpegBlock IDCT8X8(const JpegBlock& dct_matrix) {
     return ret;
 }
 
+// 每项 + 128
+void ShiftSubImage(JpegBlock& sub_image) {
+    for (auto& row : sub_image)
+        for (auto& pixel : row)
+            pixel += 128;
+}
+
+//R = Y + 1.402(Cr - 128)
+//G = Y - 0.34414(Cb - 128) - 0.71414(Cr - 128)
+//B = Y + 1.772(Cb - 128)
+std::array<int16_t, 3> YCbCrToRBG(int16_t Y, int16_t Cb, int16_t Cr) {
+    std::array<int16_t, 3> rgb;
+    rgb[0] = int16_t(Y + 1.402*(Cr - 128));
+    rgb[1] = int16_t(Y - 0.34414*(Cb - 128) - 0.71414*(Cr - 128));
+    rgb[2] = int16_t(Y + 1.772*(Cb - 128));
+    return rgb;
+}
+
+std::array<std::array<RgbPixel, 8>, 8> BlockYCbCrToRBG(const UnitBlock& block) {
+    const JpegBlock& Y = block[0];
+    const JpegBlock& Cb = block[1];
+    const JpegBlock& Cr = block[2];
+    std::array<std::array<RgbPixel, 8>, 8> ret;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            ret[i][j] = YCbCrToRBG(Y[i][j], Cb[i][j], Cr[i][j]);
+        }
+    }
+    return ret;
+}
+
 void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<DefHuffmanTable::HuffmanTable>& huffman_tables) {
     uint8_t sample_precision = SOF0_.P; // 基线顺序模式下，为 8 bit
     uint16_t vertical_size = SOF0_.Y;
@@ -613,14 +644,27 @@ void DeHuffmanEntropyCode(const uint8_t* code, int code_len, const std::vector<D
         idct_sets[i][0] = IDCT8X8(origin_dct_sets[i][0]);
         idct_sets[i][1] = IDCT8X8(origin_dct_sets[i][1]);
         idct_sets[i][2] = IDCT8X8(origin_dct_sets[i][2]);
-        //PrintBlock(idct_sets[i][0]);
-        //PrintBlock(idct_sets[i][1]);
-        //PrintBlock(idct_sets[i][2]);
+        for (int j = 0; j < 3; ++j)
+            ShiftSubImage(idct_sets[i][j]);
+        PrintBlock(idct_sets[i][0]); std::cout << std::endl;
+        PrintBlock(idct_sets[i][1]); std::cout << std::endl;
+        PrintBlock(idct_sets[i][2]); std::cout << std::endl;
     }
 
     // 反降采样
+    // 现在只支持 1:1 采样
+    std::vector<UnitBlock> YCbCr_blocks = idct_sets;
 
     // YCbCr -> RGB
+    std::vector<std::array<std::array<RgbPixel, 8>, 8>> RGB_blocks;
+    for (auto& YCbCr_block : YCbCr_blocks) {
+        RGB_blocks.push_back(BlockYCbCrToRBG(YCbCr_block));
+    }
+    std::cout << "RGB:\n";
+    for (auto& rgb_block : RGB_blocks) {
+        PrintRgbBlock(rgb_block);
+        std::cout << std::endl;
+    }
 }
 
 void DecodeJpeg() {

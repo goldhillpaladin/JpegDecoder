@@ -37,6 +37,18 @@ void PrintBlock(const std::array<std::array<int16_t, 8>, 8>& block) {
     }
 }
 
+void PrintRgbBlock(const std::array<std::array<RgbPixel, 8>, 8>& rgb_block) {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                std::cout << rgb_block[i][j][k] << " ";
+            }
+            std::cout << "\t";
+        }
+        std::cout << std::endl;
+    }
+}
+
 std::vector<std::pair<int, int>> ZigzigOrderOfMatrix(int n) {
     std::vector<std::pair<int, int>> zigzag;
     zigzag.push_back({ 0, 0 });

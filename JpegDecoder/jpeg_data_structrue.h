@@ -4,10 +4,14 @@
 #include <cstdint>
 #include <vector>
 
+typedef std::array<int16_t, 3> RgbPixel;
+
 // 8 x 8 矩阵
 typedef std::array<std::array<int16_t, 8>, 8> JpegBlock;
 
 void PrintBlock(const std::array<std::array<int16_t, 8>, 8>& block);
+
+void PrintRgbBlock(const std::array<std::array<RgbPixel, 8>, 8>& rgb_block);
 
 // 8 x 8 像素块，含有 3 个通道，一次为 Y，Cb，Cr
 typedef std::array<JpegBlock, 3> UnitBlock;
