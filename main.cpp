@@ -6,7 +6,7 @@
 #include "jpeg_decoder.h"
 
 void test1() {
-    ParseJpeg("C:/Users/paladin/Desktop/huff_simple0.jpg");
+    ParseJpeg("samples/huff_simple0.jpg");
 
     /*
     std::vector<uint8_t> frame_header_stream = { 00, 0x11, 0x08, 0x03, 0x02, 0x04, 0xE9, 0x03, 0x01, 0x22, 0x00, 0x02, 0x11, 0x01, 0x03, 0x11, 0x01 };
