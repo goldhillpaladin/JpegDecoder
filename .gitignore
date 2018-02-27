@@ -35,3 +35,13 @@
 .vs
 x64
 JpegDecoder/x64
+Win32
+JpegDecoder.dir
+CMakeFiles
+src/CMakeFiles
+Debug
+*.cmake
+*.vcxproj
+*.vcxproj.filters
+*.sln
+CMakeCache.txt
