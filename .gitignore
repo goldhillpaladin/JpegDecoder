@@ -45,3 +45,7 @@ Debug
 *.vcxproj.filters
 *.sln
 CMakeCache.txt
+
+# Linux
+Makefile
+JpegDecoder
