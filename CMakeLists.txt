@@ -1,5 +1,6 @@
 ﻿cmake_minimum_required(VERSION 2.6)
 project(JpegDecoder)
+set(CMAKE_CXX_STANDARD 11)
 
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 include_directories(${SRC_DIR})
